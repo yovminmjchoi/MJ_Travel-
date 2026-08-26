@@ -1,0 +1,11 @@
+{
+  "name": "MJ Travel",
+  "short_name": "MJ Travel",
+  "description": "MJ의 개인 여행 대시보드",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f3ed",
+  "theme_color": "#121212",
+  "lang": "ko-KR"
+}
