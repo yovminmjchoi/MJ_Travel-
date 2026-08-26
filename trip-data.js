@@ -1,9 +1,11 @@
 window.MJ_TRIP_DATA = {
   meta: {
     title: "MJ Journey 2026",
+    dataVersion: 2,
     lastChecked: "2026-08-27",
     note: "가격·운영시간은 확인일 기준. 출발 직전 공식 채널 재확인.",
-    privacy: "Public 저장소에는 여권번호, 카드번호, 예약번호 등 민감정보를 저장하지 않음."
+    privacy: "Public 저장소에는 여권번호, 카드번호, 예약번호 등 민감정보를 저장하지 않음.",
+    statusLegend: "status: CONFIRMED|PLAN|OPTION|NEED_TO_BOOK|CHECK_BEFORE_TRAVEL · verification: USER_CONFIRMED|BOOKING_CONFIRMED|SOURCE_VERIFIED|UNVERIFIED"
   },
   flights: [
     { date: "2026-09-01", from: "ICN T1", to: "PVG T1", flight: "FM3068 / MU5042 운항", depart: "12:55", arrive: "14:15", status: "확정" },
@@ -29,7 +31,7 @@ window.MJ_TRIP_DATA = {
       ],
       route: [
         { id: "pvg", order: 1, time: "14:15", name: "Shanghai Pudong Airport T1", type: "airport", lat: 31.1443, lng: 121.8083, duration: "입국·수하물 약 60–75분 예상", note: "입국심사 후 Maglev 표 또는 Maglev+Metro Pass 구매.", transportToNext: "Maglev + Metro", travelTimeToNext: "약 50–65분", costToNext: "55 CNY 패스 추천", mapQuery: "Shanghai Pudong International Airport Terminal 1" },
-        { id: "hostel", order: 2, time: "16:20", name: "No.1 International Youth Hostel", type: "stay", lat: 31.2297, lng: 121.4906, duration: "20분", note: "짐만 놓고 바로 출발. 9F, No.59 Yan'an East Road. 예원과 와이탄 사이 위치.", transportToNext: "도보", travelTimeToNext: "약 5–10분", costToNext: "0 CNY", mapQuery: "No. 59 Yan'an East Road Huangpu Shanghai" },
+        { id: "hostel", order: 2, time: "16:20", name: "No.1 International Youth Hostel", type: "stay", status: "CONFIRMED", verification: "BOOKING_CONFIRMED", lat: 31.2297, lng: 121.4906, duration: "20분", note: "짐만 놓고 바로 출발. 9F, No.59 Yan'an East Road. 예원과 와이탄 사이 위치.", transportToNext: "도보", travelTimeToNext: "약 5–10분", costToNext: "0 CNY", mapQuery: "No. 59 Yan'an East Road Huangpu Shanghai" },
         { id: "yuyuan", order: 3, time: "16:45", name: "Yuyuan Bazaar · 九曲桥", type: "sight", lat: 31.2270, lng: 121.4922, duration: "35분", note: "정식 Yu Garden 내부가 아니라 상성·구곡교 위주. 정원은 늦은 도착 때문에 일정에서 제외.", transportToNext: "도보", travelTimeToNext: "약 15분", costToNext: "0 CNY", mapQuery: "Yuyuan Bazaar Shanghai" },
         { id: "jinling-ferry", order: 4, time: "17:45", name: "East Jinling Road Ferry Pier", type: "transport", lat: 31.2299, lng: 121.4983, duration: "약 10–15분", note: "Dongjin Line. Puxi 출발 운영 07:15–18:30. 보행자 2 CNY. 일몰 전 강을 건너는 핵심 구간.", transportToNext: "황푸강 페리", travelTimeToNext: "약 10분", costToNext: "2 CNY", mapQuery: "East Jinling Road Ferry Pier Shanghai" },
         { id: "dongchang", order: 5, time: "18:00", name: "Dongchang Road Ferry Pier · Lujiazui", type: "sight", lat: 31.2358, lng: 121.5071, duration: "45분", note: "강변에서 일몰과 푸시 스카이라인 감상. 전망대 입장보다 거리·강변에 집중.", transportToNext: "Metro Line 2", travelTimeToNext: "약 20–25분", costToNext: "24h Metro Pass 포함", mapQuery: "Dongchang Road Ferry Pier Shanghai" },
@@ -64,7 +66,7 @@ window.MJ_TRIP_DATA = {
         { id: "sh-checkout", order: 1, time: "07:50", name: "Hostel Check-out", type: "stay", lat: 31.2297, lng: 121.4906, duration: "10분", note: "08:00 숙소 출발.", transportToNext: "Metro", travelTimeToNext: "약 80–100분 여유 잡기", costToNext: "전날 24h pass 유효 여부 확인", mapQuery: "No. 59 Yan'an East Road Huangpu Shanghai" },
         { id: "pvg-depart", order: 2, time: "09:30", name: "PVG Terminal 1", type: "airport", lat: 31.1443, lng: 121.8083, duration: "체크인·출국·보안", note: "국제선 수속을 위해 약 3시간 전 도착 목표.", transportToNext: "MU285", travelTimeToNext: "약 10시간 10분", costToNext: "항공권 결제 완료", mapQuery: "Shanghai Pudong International Airport Terminal 1" },
         { id: "tbs", order: 3, time: "19:00", name: "Tbilisi International Airport", type: "airport", lat: 41.6692, lng: 44.9547, duration: "입국·수하물 약 60분 예상", note: "현금이 필요하면 소액만. 시내 이동은 앱 차량/택시 또는 337번 버스 비교.", transportToNext: "앱 차량/택시 추천", travelTimeToNext: "약 20–30분", costToNext: "현장 앱 요금 확인 · 337번은 1 GEL", mapQuery: "Tbilisi International Airport" },
-        { id: "tbilisi-stay", order: 4, time: "20:45", name: "Tbilisi Stay · 숙소 위치 입력 필요", type: "stay", lat: 41.6938, lng: 44.8015, duration: "30분", note: "현재는 Freedom Square를 임시 기준점으로 사용. 숙소 확정 후 정확한 핀과 공항 이동비 업데이트.", transportToNext: "도보", travelTimeToNext: "숙소 위치에 따라 결정", costToNext: "-", mapQuery: "Freedom Square Tbilisi" },
+        { id: "tbilisi-stay", order: 4, time: "20:45", name: "Tbilisi Stay · 숙소 위치 입력 필요", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 41.6938, lng: 44.8015, duration: "30분", note: "현재는 Freedom Square를 임시 기준점으로 사용. 숙소 확정 후 정확한 핀과 공항 이동비 업데이트.", transportToNext: "도보", travelTimeToNext: "숙소 위치에 따라 결정", costToNext: "-", mapQuery: "Freedom Square Tbilisi" },
         { id: "first-dinner", order: 5, time: "21:15", name: "Old Tbilisi · First Dinner", type: "food", lat: 41.6903, lng: 44.8080, duration: "60–75분", note: "첫날은 조지아 음식 한 끼와 짧은 구시가지 산책 정도만.", transportToNext: "도보/앱 차량", travelTimeToNext: "숙소 기준", costToNext: "식비 현장", mapQuery: "Old Tbilisi" },
         { id: "sleep", order: 6, time: "23:15", name: "Return & Sleep", type: "stay", lat: 41.6938, lng: 44.8015, duration: "취침", note: "다음날 Old Tbilisi full day.", mapQuery: "Freedom Square Tbilisi" }
       ],
@@ -114,8 +116,6 @@ window.MJ_TRIP_DATA = {
       city: "Kakheti",
       country: "Georgia",
       title: "Kakheti Wine Day",
-      status: "PLAN",
-      verification: "USER_CONFIRMED",
       subtitle: "Tbilisi → Bodbe → Sighnaghi → 소규모 qvevri 와이너리 → Tbilisi 복귀",
       alert: {
         title: "투어 미예약 · 예약 필요",
@@ -160,7 +160,7 @@ window.MJ_TRIP_DATA = {
         { id: "kz-didube", order: 1, time: "08:30", name: "Didube Marshrutka Station", type: "transport", status: "PLAN", verification: "UNVERIFIED", lat: 41.7306, lng: 44.7726, duration: "탑승·출발 대기", note: "Kazbegi/Stepantsminda 방면 마슈룻카 승차. 출발 전 좌석·요금 확인.", transportToNext: "마슈룻카", travelTimeToNext: "약 3–3.5시간", costToNext: "현장", mapQuery: "Didube Bus Station Tbilisi" },
         { id: "kz-ananuri", order: 2, time: "10:00", name: "Ananuri Fortress (optional)", type: "sight", status: "OPTION", verification: "UNVERIFIED", lat: 42.1631, lng: 44.7030, duration: "약 20분", note: "일반 마슈룻카의 확정 정차 아님. 기사가 서는 경우에만 짧게 포토스톱.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Ananuri Fortress Georgia" },
         { id: "kz-gudauri", order: 3, time: "11:20", name: "Gudauri Viewpoint (optional)", type: "sight", status: "OPTION", verification: "UNVERIFIED", lat: 42.4780, lng: 44.4810, duration: "약 15분", note: "일반 마슈룻카의 확정 정차 아님. 차량이 서면 우호 파노라마 전망대 부근 잠깐.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Russia Georgia Friendship Monument Gudauri" },
-        { id: "kz-town", order: 4, time: "12:40", name: "Stepantsminda 도착", type: "stay", status: "PLAN", verification: "UNVERIFIED", lat: 42.6572, lng: 44.6415, duration: "체크인·휴식", note: "짐 풀고 마을·전망 산책. Gergeti Trinity는 컨디션 보고 오후 또는 9/07 오전으로 조정.", mapQuery: "Stepantsminda Georgia" }
+        { id: "kz-town", order: 4, time: "12:40", name: "Stepantsminda 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", status: "PLAN", verification: "UNVERIFIED", lat: 42.6572, lng: 44.6415, duration: "체크인·휴식", note: "짐 풀고 마을·전망 산책. Gergeti Trinity는 컨디션 보고 오후 또는 9/07 오전으로 조정.", mapQuery: "Stepantsminda Georgia" }
       ],
       food: [
         { id: "kz-rooms", name: "Rooms Hotel Kazbegi Restaurant", kind: "food", status: "planned", area: "Stepantsminda", hours: "현지 확인", price: "중상", note: "Kazbegi 전망으로 유명한 호텔 레스토랑. 전망 좋은 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Rooms Hotel Kazbegi", sourceNote: "일반 참고 · 방문일 재확인" }
@@ -211,7 +211,7 @@ window.MJ_TRIP_DATA = {
       route: [
         { id: "gg-trinity", order: 1, time: "08:30", name: "Gergeti Trinity Church", type: "sight", lat: 42.6625, lng: 44.6203, duration: "약 2–3시간(왕복)", note: "Kazbegi의 상징. 도보 등반은 시간·체력 소요, 4x4 옵션도 있음.", transportToNext: "도보/4x4로 마을", travelTimeToNext: "약 40–90분", costToNext: "4x4 시 현지", mapQuery: "Gergeti Trinity Church" },
         { id: "gg-station", order: 2, time: "12:00", name: "Stepantsminda 마슈룻카", type: "transport", lat: 42.6572, lng: 44.6415, duration: "탑승 대기", note: "Tbilisi(Didube)행 마슈룻카. 좌석·출발시간 확인.", transportToNext: "마슈룻카", travelTimeToNext: "약 3–3.5시간", costToNext: "현장", mapQuery: "Stepantsminda Georgia" },
-        { id: "gg-tbilisi", order: 3, time: "15:30", name: "Tbilisi 복귀", type: "stay", lat: 41.6938, lng: 44.8015, duration: "휴식", note: "Freedom Square 임시 기준점. 짐 재정비·세탁 등 다음 Svaneti 구간 준비.", mapQuery: "Freedom Square Tbilisi" }
+        { id: "gg-tbilisi", order: 3, time: "15:30", name: "Tbilisi 복귀", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 41.6938, lng: 44.8015, duration: "휴식", note: "Freedom Square 임시 기준점. 짐 재정비·세탁 등 다음 Svaneti 구간 준비.", mapQuery: "Freedom Square Tbilisi" }
       ],
       food: []
     },
@@ -235,7 +235,7 @@ window.MJ_TRIP_DATA = {
       route: [
         { id: "me-depart", order: 1, time: "07:00", name: "Tbilisi 출발", type: "transport", lat: 41.7306, lng: 44.7726, duration: "탑승·출발", note: "Mestia 직행 마슈룻카 승차(예약 좌석 확인). 장거리라 화장실·식사 타이밍 계획.", transportToNext: "마슈룻카", travelTimeToNext: "약 8–9시간", costToNext: "예약 요금 확인", mapQuery: "Didube Bus Station Tbilisi" },
         { id: "me-zugdidi", order: 2, time: "13:30", name: "Zugdidi 부근 경유", type: "transport", lat: 42.5088, lng: 41.8709, duration: "휴게", note: "서부 저지대에서 산악도로로 전환하는 지점(대략). 직행은 정차만.", transportToNext: "마슈룻카", travelTimeToNext: "약 2.5–3시간", costToNext: "-", mapQuery: "Zugdidi Georgia" },
-        { id: "me-arrive", order: 3, time: "16:00", name: "Mestia 도착", type: "stay", lat: 43.0451, lng: 42.7289, duration: "체크인·휴식", note: "Svaneti 중심지. 트레킹 짐·날씨·마을 안내소 확인.", mapQuery: "Mestia Svaneti Georgia" }
+        { id: "me-arrive", order: 3, time: "16:00", name: "Mestia 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 43.0451, lng: 42.7289, duration: "체크인·휴식", note: "Svaneti 중심지. 트레킹 짐·날씨·마을 안내소 확인.", mapQuery: "Mestia Svaneti Georgia" }
       ],
       food: [
         { id: "me-laila", name: "Cafe Laila", kind: "food", status: "planned", area: "Mestia 중앙광장", hours: "현지 확인", price: "중간", note: "Mestia 중앙광장의 대표 카페·레스토랑. 트레킹 전후 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Cafe Laila Mestia", sourceNote: "일반 참고 · 방문일 재확인" }
@@ -261,7 +261,7 @@ window.MJ_TRIP_DATA = {
       route: [
         { id: "sv1-mestia", order: 1, time: "08:30", name: "Mestia 출발", type: "stay", lat: 43.0451, lng: 42.7289, duration: "-", note: "Zhabeshi까지 로컬 차량 이동으로 트레킹 시작점 단축.", transportToNext: "로컬 차량", travelTimeToNext: "약 40–60분", costToNext: "현지 확인", mapQuery: "Mestia Svaneti Georgia" },
         { id: "sv1-zhabeshi", order: 2, time: "09:30", name: "Zhabeshi", type: "sight", lat: 43.0230, lng: 42.9010, duration: "출발 준비", note: "트레킹 시작 마을(대략 좌표). Adishi 방향으로 도보.", transportToNext: "도보", travelTimeToNext: "약 5–7시간", costToNext: "0 GEL", mapQuery: "Zhabeshi Svaneti Georgia" },
-        { id: "sv1-adishi", order: 3, time: "16:00", name: "Adishi 도착", type: "stay", lat: 42.9520, lng: 43.0470, duration: "숙박", note: "중세 탑이 남은 산간 마을(대략 좌표). 게스트하우스 저녁·휴식.", mapQuery: "Adishi Svaneti Georgia" }
+        { id: "sv1-adishi", order: 3, time: "16:00", name: "Adishi 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 42.9520, lng: 43.0470, duration: "숙박", note: "중세 탑이 남은 산간 마을(대략 좌표). 게스트하우스 저녁·휴식.", mapQuery: "Adishi Svaneti Georgia" }
       ],
       food: []
     },
@@ -284,8 +284,8 @@ window.MJ_TRIP_DATA = {
       ],
       route: [
         { id: "sv2-adishi", order: 1, time: "08:00", name: "Adishi 출발", type: "stay", lat: 42.9520, lng: 43.0470, duration: "-", note: "이른 출발로 빙하천 도하 시간 확보.", transportToNext: "도보", travelTimeToNext: "약 1–1.5시간", costToNext: "0 GEL", mapQuery: "Adishi Svaneti Georgia" },
-        { id: "sv2-river", order: 2, time: "09:30", name: "Adishi 강 도하 지점", type: "transport", lat: 42.9450, lng: 43.0900, duration: "도하", note: "수심·유속 확인 후 도보 또는 말 도하(대략 좌표).", transportToNext: "도보", travelTimeToNext: "약 3–4시간", costToNext: "말 도하 시 현지", mapQuery: "Adishi river crossing Svaneti" },
-        { id: "sv2-iprali", order: 3, time: "16:00", name: "Iprali 도착", type: "stay", lat: 42.9300, lng: 43.1600, duration: "숙박", note: "Chkhunderi Pass 이후 하산해 도착(대략 좌표). 다음날 Ushguli.", mapQuery: "Iprali Svaneti Georgia" }
+        { id: "sv2-river", order: 2, time: "09:30", name: "Adishi 강 도하 지점", type: "transport", status: "CHECK_BEFORE_TRAVEL", verification: "UNVERIFIED", lat: 42.9450, lng: 43.0900, duration: "도하", note: "수심·유속 확인 후 도보 또는 말 도하(대략 좌표).", transportToNext: "도보", travelTimeToNext: "약 3–4시간", costToNext: "말 도하 시 현지", mapQuery: "Adishi river crossing Svaneti" },
+        { id: "sv2-iprali", order: 3, time: "16:00", name: "Iprali 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 42.9300, lng: 43.1600, duration: "숙박", note: "Chkhunderi Pass 이후 하산해 도착(대략 좌표). 다음날 Ushguli.", mapQuery: "Iprali Svaneti Georgia" }
       ],
       food: []
     },
@@ -309,7 +309,7 @@ window.MJ_TRIP_DATA = {
       route: [
         { id: "sv3-iprali", order: 1, time: "08:30", name: "Iprali 출발", type: "stay", lat: 42.9300, lng: 43.1600, duration: "-", note: "Ushguli 방향으로 마지막 트레킹.", transportToNext: "도보", travelTimeToNext: "약 3–4시간", costToNext: "0 GEL", mapQuery: "Iprali Svaneti Georgia" },
         { id: "sv3-ushguli", order: 2, time: "12:30", name: "Ushguli", type: "sight", lat: 42.9175, lng: 43.0247, duration: "약 2시간", note: "UNESCO 탑 마을. 점심·전망 후 Mestia행 4WD 탑승.", transportToNext: "4WD", travelTimeToNext: "약 2–3시간", costToNext: "현지 섭외", mapQuery: "Ushguli Svaneti Georgia" },
-        { id: "sv3-mestia", order: 3, time: "16:30", name: "Mestia 복귀", type: "stay", lat: 43.0451, lng: 42.7289, duration: "숙박", note: "트레킹 종료. 다음날 날씨 버퍼/휴식.", mapQuery: "Mestia Svaneti Georgia" }
+        { id: "sv3-mestia", order: 3, time: "16:30", name: "Mestia 복귀", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 43.0451, lng: 42.7289, duration: "숙박", note: "트레킹 종료. 다음날 날씨 버퍼/휴식.", mapQuery: "Mestia Svaneti Georgia" }
       ],
       food: []
     },
@@ -355,7 +355,7 @@ window.MJ_TRIP_DATA = {
       ],
       route: [
         { id: "ku-mestia", order: 1, time: "09:00", name: "Mestia 출발", type: "transport", lat: 43.0451, lng: 42.7289, duration: "탑승", note: "Kutaisi행 마슈룻카. 좌석·출발 확인.", transportToNext: "마슈룻카", travelTimeToNext: "약 4–5시간", costToNext: "현장", mapQuery: "Mestia Svaneti Georgia" },
-        { id: "ku-arrive", order: 2, time: "14:00", name: "Kutaisi 도착", type: "stay", lat: 42.2662, lng: 42.7180, duration: "체크인", note: "짐 풀고 시내·성당. 다음날 Batumi 대비 휴식.", transportToNext: "도보/시내", travelTimeToNext: "-", costToNext: "-", mapQuery: "Kutaisi Georgia" },
+        { id: "ku-arrive", order: 2, time: "14:00", name: "Kutaisi 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 42.2662, lng: 42.7180, duration: "체크인", note: "짐 풀고 시내·성당. 다음날 Batumi 대비 휴식.", transportToNext: "도보/시내", travelTimeToNext: "-", costToNext: "-", mapQuery: "Kutaisi Georgia" },
         { id: "ku-bagrati", order: 3, time: "16:30", name: "Bagrati Cathedral (옵션)", type: "sight", lat: 42.2780, lng: 42.7060, duration: "약 40분", note: "언덕 위 성당·시내 전망. 여유 있을 때.", mapQuery: "Bagrati Cathedral Kutaisi" }
       ],
       food: [
@@ -381,7 +381,7 @@ window.MJ_TRIP_DATA = {
       ],
       route: [
         { id: "ba-kutaisi", order: 1, time: "09:30", name: "Kutaisi 출발", type: "transport", lat: 42.2662, lng: 42.7180, duration: "탑승", note: "Batumi행 마슈룻카.", transportToNext: "마슈룻카", travelTimeToNext: "약 2–3시간", costToNext: "현장", mapQuery: "Kutaisi Georgia" },
-        { id: "ba-arrive", order: 2, time: "12:30", name: "Batumi 도착", type: "stay", lat: 41.6461, lng: 41.6367, duration: "체크인", note: "짐 풀고 해안 방향으로 이동.", transportToNext: "도보", travelTimeToNext: "-", costToNext: "-", mapQuery: "Batumi Georgia" },
+        { id: "ba-arrive", order: 2, time: "12:30", name: "Batumi 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 41.6461, lng: 41.6367, duration: "체크인", note: "짐 풀고 해안 방향으로 이동.", transportToNext: "도보", travelTimeToNext: "-", costToNext: "-", mapQuery: "Batumi Georgia" },
         { id: "ba-boulevard", order: 3, time: "16:00", name: "Batumi Boulevard", type: "sight", lat: 41.6519, lng: 41.6336, duration: "저녁 포함", note: "해변 산책로·분수·조형물. 저녁 식사와 야경.", mapQuery: "Batumi Boulevard" }
       ],
       food: []
@@ -407,7 +407,7 @@ window.MJ_TRIP_DATA = {
         { id: "tr-batumi", order: 1, time: "08:30", name: "Batumi 출발", type: "transport", lat: 41.6461, lng: 41.6367, duration: "-", note: "Sarpi 국경까지 로컬버스/마슈룻카.", transportToNext: "로컬버스/마슈룻카", travelTimeToNext: "약 30–40분", costToNext: "현장", mapQuery: "Batumi Georgia" },
         { id: "tr-sarpi", order: 2, time: "09:30", name: "Sarpi Border", type: "transport", lat: 41.5205, lng: 41.5490, duration: "통과 30–60분", note: "도보로 조지아 출국·터키 입국. 대기시간 변동 큼. 여기서 시계 -1h.", transportToNext: "돌무쉬/버스", travelTimeToNext: "약 20–30분", costToNext: "현장", mapQuery: "Sarpi border Georgia Turkey" },
         { id: "tr-hopa", order: 3, time: "10:30", name: "Hopa 환승", type: "transport", lat: 41.3855, lng: 41.4260, duration: "환승", note: "Trabzon행 로컬버스/돌무쉬로 환승(현지 시각 기준).", transportToNext: "로컬버스", travelTimeToNext: "약 3–3.5시간", costToNext: "현장", mapQuery: "Hopa Turkey" },
-        { id: "tr-trabzon", order: 4, time: "13:30", name: "Trabzon 도착", type: "stay", lat: 41.0027, lng: 39.7168, duration: "체크인·시내", note: "현지 시각 기준 도착. 하기아 소피아·광장 등 시내 산책.", mapQuery: "Trabzon Turkey" }
+        { id: "tr-trabzon", order: 4, time: "13:30", name: "Trabzon 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 41.0027, lng: 39.7168, duration: "체크인·시내", note: "현지 시각 기준 도착. 하기아 소피아·광장 등 시내 산책.", mapQuery: "Trabzon Turkey" }
       ],
       food: []
     },
@@ -431,7 +431,7 @@ window.MJ_TRIP_DATA = {
       route: [
         { id: "nb-trabzon", order: 1, time: "10:00", name: "Trabzon (Boztepe 등)", type: "sight", lat: 41.0027, lng: 39.7168, duration: "오전", note: "Boztepe 전망 등 오전 관광 후 서쪽으로 이동.", transportToNext: "로컬버스", travelTimeToNext: "약 2–2.5시간", costToNext: "현장", mapQuery: "Boztepe Trabzon" },
         { id: "nb-ordu", order: 2, time: "13:00", name: "Ordu", type: "sight", lat: 40.9839, lng: 37.8764, duration: "오후", note: "Boztepe 케이블카(터키 Ordu) 등 연안 도시 관광. 야간버스 출발 전까지.", transportToNext: "야간버스", travelTimeToNext: "약 10–12시간(야간)", costToNext: "예약 요금 확인", mapQuery: "Ordu Turkey" },
-        { id: "nb-bus", order: 3, time: "21:00", name: "야간버스 탑승", type: "transport", lat: 40.9839, lng: 37.8764, duration: "야간 이동", note: "Istanbul행 야간버스. 익일 오전 도착 예정. 좌석 예약 확인.", transportToNext: "야간버스", travelTimeToNext: "익일 오전", costToNext: "-", mapQuery: "Ordu bus terminal" }
+        { id: "nb-bus", order: 3, time: "21:00", name: "야간버스 탑승", type: "transport", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 40.9839, lng: 37.8764, duration: "야간 이동", note: "Istanbul행 야간버스. 익일 오전 도착 예정. 좌석 예약 확인.", transportToNext: "야간버스", travelTimeToNext: "익일 오전", costToNext: "-", mapQuery: "Ordu bus terminal" }
       ],
       food: []
     },
@@ -441,8 +441,6 @@ window.MJ_TRIP_DATA = {
       city: "Istanbul",
       country: "Türkiye",
       title: "Arrive Istanbul · Rental Pickup",
-      status: "PLAN",
-      verification: "UNVERIFIED",
       subtitle: "야간버스 도착 → 17:00 어머니 합류 → 18:00 IST QCAR 렌터카 픽업 → 터키 로드트립 시작",
       alert: {
         title: "렌터카 확정 · 세부 루트는 미확정",

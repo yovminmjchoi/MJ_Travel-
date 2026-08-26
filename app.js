@@ -18,6 +18,30 @@
   const dir = query => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
   const selectedDay = () => DATA.days.find(d => d.id === state.selectedDay) || DATA.days[0];
 
+  // --- Planning status system (COLLAB #6/#7 schema) ---
+  // status = 워크플로우, verification = 출처검증 (2축 분리). PLAN은 baseline이라 pill 생략.
+  const STATUS_META = {
+    CONFIRMED:           { label: '확정',      cls: 'st-confirmed' },
+    NEED_TO_BOOK:        { label: '예약 필요', cls: 'st-book' },
+    CHECK_BEFORE_TRAVEL: { label: '재확인',    cls: 'st-check' },
+    OPTION:              { label: '옵션',      cls: 'st-option' },
+    PLAN:                { label: '계획',      cls: 'st-plan' }
+  };
+  const uid = (dayId, itemId) => `${dayId}:${itemId}`; // 전역 unique entity key
+  function statusPill(status) {
+    const m = STATUS_META[status] || STATUS_META.PLAN;
+    return `<span class="status-pill ${m.cls}">${esc(m.label)}</span>`;
+  }
+  const bookingItems = day => day.route.filter(s => s.status === 'NEED_TO_BOOK');
+  // day 파생 상태: 명시 day.status 우선, 없으면 하위 항목에서 요약(GPT #7)
+  function deriveDayStatus(day) {
+    if (day.status) return day.status;
+    const st = day.route.map(s => s.status).filter(Boolean);
+    if (st.includes('NEED_TO_BOOK')) return 'NEED_TO_BOOK';
+    if (st.length && st.every(s => s === 'CONFIRMED')) return 'CONFIRMED';
+    return 'PLAN';
+  }
+
   function localDateISO() {
     const now = new Date();
     const y = now.getFullYear();
@@ -140,7 +164,7 @@
         <div class="stop-card">
           <div class="stop-top">
             <div>
-              <h3>${stop.order}. ${esc(stop.name)}</h3>
+              <h3>${stop.order}. ${esc(stop.name)} ${stop.status && stop.status !== 'PLAN' ? statusPill(stop.status) : ''}</h3>
               <p>${esc(stop.note || '')}</p>
             </div>
             ${visited ? '<span class="badge visited">방문 완료</span>' : ''}
@@ -180,9 +204,10 @@
   function renderFood(day) {
     $('#foodList').innerHTML = day.food.map(p => {
       const visited = !!state.visited[`place:${p.id}`];
+      const foodPlanStatus = STATUS_META[p.status] ? p.status : null; // OPTION 등 planning status만
       return `<article class="place-card">
         <div class="type">${p.kind === 'cafe' ? 'CAFE' : 'FOOD'} · ${esc(p.area)}</div>
-        <h3>${esc(p.name)}</h3>
+        <h3>${esc(p.name)} ${foodPlanStatus && foodPlanStatus !== 'PLAN' ? statusPill(foodPlanStatus) : ''}</h3>
         <p>${esc(p.note)}</p>
         <div class="badges">
           <span class="badge">${esc(p.hours)}</span>
@@ -208,7 +233,12 @@
   function renderDay() {
     const day = selectedDay();
     $('#dayTitle').textContent = `${day.dateLabel} · ${day.city}`;
-    $('#alertBox').innerHTML = day.alert ? `<div class="alert"><strong>${esc(day.alert.title)}</strong>${esc(day.alert.text)}</div>` : '';
+    const books = bookingItems(day);
+    const bookBanner = books.length
+      ? `<div class="book-banner">🔖 예약 필요 ${books.length}건 · ${books.map(s => esc(s.name)).join(' · ')}</div>`
+      : '';
+    const alertHtml = day.alert ? `<div class="alert"><strong>${esc(day.alert.title)}</strong>${esc(day.alert.text)}</div>` : '';
+    $('#alertBox').innerHTML = bookBanner + alertHtml;
     renderDayMap(day);
     renderTimeline(day);
     renderQuick(day);
@@ -218,7 +248,7 @@
   function renderTrip() {
     $('#tripTimeline').innerHTML = DATA.days.map(day => `
       <article class="trip-day">
-        <div class="date">${esc(day.dateLabel)} · ${esc(day.country)}</div>
+        <div class="date">${esc(day.dateLabel)} · ${esc(day.country)} ${statusPill(deriveDayStatus(day))}</div>
         <h3>${esc(day.city)} — ${esc(day.title)}</h3>
         <p>${esc(day.subtitle)}</p>
         <div class="actions"><button type="button" class="action-btn open-day" data-day="${day.id}">이 날짜 열기</button></div>

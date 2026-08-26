@@ -87,6 +87,13 @@ main { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 22px 0 70
   pointer-events: none; text-align: center;
 }
 .map-offline-note.show { display: block; }
+.status-pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .2px; vertical-align: middle; white-space: nowrap; }
+.st-confirmed { background: #e2efe4; color: #20372f; border: 1px solid #bcd6c2; }
+.st-book { background: #fbe6d8; color: #8a3b12; border: 1px solid #f0c3a3; }
+.st-check { background: #fbf1cf; color: #7a5a12; border: 1px solid #ecd894; }
+.st-option { background: #e9e7f2; color: #463f6b; border: 1px solid #cfc9e6; }
+.st-plan { background: #eee9e0; color: #6b6455; border: 1px solid #ddd4c4; }
+.book-banner { margin-top: 14px; border-radius: 14px; padding: 11px 14px; background: #fbe6d8; color: #8a3b12; border: 1px solid #f0c3a3; font-size: 13px; font-weight: 650; line-height: 1.5; }
 .leaflet-popup-content-wrapper { border-radius: 14px; }
 .route-pin {
   width: 29px; height: 29px; border-radius: 50%; display: grid; place-items:center;
