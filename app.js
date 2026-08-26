@@ -77,6 +77,27 @@
     return L.divIcon({ className: '', html: `<div class="route-pin">${n}</div>`, iconSize: [29,29], iconAnchor:[14,14] });
   }
 
+  // Leaflet은 로컬(self-host)에서 뜨므로, 온라인 타일이 없어도 핀과 동선은 그대로 렌더된다.
+  // 온라인일 때만 OSM 타일을 얹고, 타일 로드 실패/오프라인이면 작은 상태 표시를 보여준다.
+  function addBaseTiles(map, mapEl) {
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    });
+    let note = mapEl.querySelector('.map-offline-note');
+    if (!note) {
+      note = document.createElement('div');
+      note.className = 'map-offline-note';
+      note.textContent = '오프라인 · 지도 배경 없이 이동 순서만 표시';
+      mapEl.appendChild(note);
+    }
+    tiles.on('tileerror', () => note.classList.add('show'));
+    tiles.on('tileload', () => note.classList.remove('show'));
+    if (!navigator.onLine) note.classList.add('show');
+    tiles.addTo(map);
+    return tiles;
+  }
+
   function ensureDayMap() {
     if (!window.L) {
       $('#dayMap').innerHTML = '<div style="padding:20px">지도를 불러오지 못했습니다. 일정의 길찾기 버튼은 계속 사용할 수 있습니다.</div>';
@@ -84,10 +105,7 @@
     }
     if (!state.dayMap) {
       state.dayMap = L.map('dayMap', { scrollWheelZoom: false, zoomControl: true });
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(state.dayMap);
+      addBaseTiles(state.dayMap, $('#dayMap'));
     }
     return state.dayMap;
   }
@@ -219,7 +237,7 @@
     if (!window.L) return;
     if (!state.allMap) {
       state.allMap = L.map('allMap', { scrollWheelZoom:false });
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'&copy; OpenStreetMap contributors' }).addTo(state.allMap);
+      addBaseTiles(state.allMap, $('#allMap'));
     }
     const map = state.allMap;
     map.eachLayer(layer => { if (!(layer instanceof L.TileLayer)) map.removeLayer(layer); });
