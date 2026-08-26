@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="MJ Travel">
+  <!-- Full-bleed ivory background: safe for maskable (bleeds to every edge) -->
+  <rect width="512" height="512" fill="#f6f3ed"/>
+  <!-- MJ route monogram: mark kept inside the central maskable safe area -->
+  <g transform="translate(6,0)" fill="none" stroke="#20372f" stroke-width="26"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- M -->
+    <path d="M120 340 L120 188 L165 300 L210 188 L210 340"/>
+    <!-- J: left-extending top serif, vertical, and a bottom hook that becomes the route -->
+    <path d="M320 188 L348 188"/>
+    <path d="M348 188 L348 298 C348 330 330 343 306 334 L300 332"/>
+  </g>
+  <!-- Waypoint at the end of the route -->
+  <g transform="translate(6,0)">
+    <circle cx="294" cy="330" r="15" fill="#20372f"/>
+    <circle cx="294" cy="330" r="5" fill="#f6f3ed"/>
+  </g>
+</svg>
