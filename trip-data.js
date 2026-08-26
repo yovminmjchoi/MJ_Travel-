@@ -113,26 +113,30 @@ window.MJ_TRIP_DATA = {
       dateLabel: "SEP 04 · FRI",
       city: "Kakheti",
       country: "Georgia",
-      title: "Kakheti Winery Day",
-      subtitle: "Tbilisi → Tsinandali → Sighnaghi 와이너리 → Tbilisi 복귀",
+      title: "Kakheti Wine Day",
+      status: "PLAN",
+      verification: "USER_CONFIRMED",
+      subtitle: "Tbilisi → Bodbe → Sighnaghi → 소규모 qvevri 와이너리 → Tbilisi 복귀",
       alert: {
-        title: "당일 투어 구간",
-        text: "Tbilisi 왕복 당일 투어라 이동시간이 김. 차량/투어와 시음 예약을 출발 전 확정하고, 시음이 있으니 운전은 투어·기사에게 맡기는 편이 안전."
+        title: "투어 미예약 · 예약 필요",
+        text: "MASTER 기준 PLAN: Bodbe → Sighnaghi → 소규모/가족형 qvevri 와이너리 + 점심 → Tbilisi. 당일 투어/차량은 아직 미예약(NEED_TO_BOOK). Tsinandali Estate는 확정 아닌 대안 옵션."
       },
       quick: [
         { label: "BASE", value: "Tbilisi 숙소 유지", sub: "짐은 트빌리시에 두고 당일 왕복" },
-        { label: "TOUR", value: "당일 투어 / 전세 차량", sub: "요금·픽업시간 예약 시 확인" },
-        { label: "TASTING", value: "와이너리 시음", sub: "시음 비용 현장 결제" },
+        { label: "TOUR", value: "당일 투어 / 전세 차량 · 미예약", sub: "NEED_TO_BOOK · 요금·픽업 예약 필요" },
+        { label: "WINE", value: "소규모 qvevri 와이너리", sub: "대형보다 가족형 선호 · 업체 미정" },
         { label: "RETURN", value: "저녁 Tbilisi 복귀", sub: "다음날 Kazbegi 이동 대비 일찍" }
       ],
       route: [
-        { id: "kk-depart", order: 1, time: "09:00", name: "Tbilisi 출발", type: "stay", lat: 41.6938, lng: 44.8015, duration: "-", note: "Freedom Square 임시 기준점(숙소 확정 시 교체). Kakheti 방향으로 출발.", transportToNext: "투어/전세 차량", travelTimeToNext: "약 1시간 40분", costToNext: "투어 요금 확인", mapQuery: "Freedom Square Tbilisi" },
-        { id: "kk-tsinandali", order: 2, time: "10:50", name: "Tsinandali Estate", type: "sight", lat: 41.8964, lng: 45.5697, duration: "약 90분", note: "정원·저택과 와이너리. 첫 시음 포인트.", transportToNext: "차량", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Tsinandali Estate Kakheti" },
-        { id: "kk-sighnaghi", order: 3, time: "13:00", name: "Sighnaghi", type: "sight", lat: 41.6175, lng: 45.9210, duration: "약 3시간", note: "성벽 마을과 전망. 점심·와인과 함께 천천히.", transportToNext: "차량", travelTimeToNext: "약 2시간", costToNext: "-", mapQuery: "Sighnaghi Kakheti Georgia" },
-        { id: "kk-return", order: 4, time: "18:30", name: "Tbilisi 복귀", type: "stay", lat: 41.6938, lng: 44.8015, duration: "취침", note: "다음날 Kazbegi 마슈룻카 대비 짐 정리·이른 취침.", mapQuery: "Freedom Square Tbilisi" }
+        { id: "kk-depart", order: 1, time: "09:00", name: "Tbilisi 출발", type: "stay", status: "PLAN", verification: "UNVERIFIED", lat: 41.6938, lng: 44.8015, duration: "-", note: "Freedom Square 임시 기준점(숙소 확정 시 교체). Kakheti 방향으로 출발.", transportToNext: "투어/전세 차량", travelTimeToNext: "약 1시간 45분", costToNext: "투어 요금 확인", mapQuery: "Freedom Square Tbilisi" },
+        { id: "kk-bodbe", order: 2, time: "10:45", name: "Bodbe Monastery", type: "sight", status: "PLAN", verification: "UNVERIFIED", lat: 41.6094, lng: 45.9330, duration: "약 45분", note: "Sighnaghi 근처 성 니노 수도원. 운영시간·복장 방문일 확인.", transportToNext: "차량", travelTimeToNext: "약 15분", costToNext: "-", mapQuery: "Bodbe Monastery Sighnaghi" },
+        { id: "kk-sighnaghi", order: 3, time: "11:30", name: "Sighnaghi", type: "sight", status: "PLAN", verification: "UNVERIFIED", lat: 41.6175, lng: 45.9210, duration: "약 2시간", note: "성벽 마을과 전망. 점심·산책.", transportToNext: "차량", travelTimeToNext: "약 15–30분", costToNext: "-", mapQuery: "Sighnaghi Kakheti Georgia" },
+        { id: "kk-qvevri", order: 4, time: "14:00", name: "소규모 qvevri 와이너리 (미정)", type: "experience", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 41.6100, lng: 45.9000, duration: "약 2시간", note: "MJ 선호: 대형 여러 곳보다 현지 분위기의 가족형 qvevri 와이너리 1곳에서 시음+점심. 특정 업체 미정·미예약. (대략 좌표)", transportToNext: "차량", travelTimeToNext: "약 2시간", costToNext: "시음 비용 현장", mapQuery: "family qvevri winery Sighnaghi Kakheti" },
+        { id: "kk-return", order: 5, time: "18:30", name: "Tbilisi 복귀", type: "stay", status: "PLAN", verification: "UNVERIFIED", lat: 41.6938, lng: 44.8015, duration: "취침", note: "다음날 Kazbegi 마슈룻카 대비 짐 정리·이른 취침.", mapQuery: "Freedom Square Tbilisi" }
       ],
       food: [
-        { id: "kk-pheasants", name: "Pheasant's Tears", kind: "food", status: "planned", area: "Sighnaghi", hours: "현지 확인", price: "중간", note: "내추럴 와인으로 유명한 Sighnaghi 와이너리 레스토랑. 예약 권장. 실제 운영은 방문일 재확인.", mapQuery: "Pheasant's Tears Sighnaghi", sourceNote: "일반 참고 · 방문일 재확인" }
+        { id: "kk-tsinandali", name: "Tsinandali Estate (대안)", kind: "cafe", status: "OPTION", verification: "UNVERIFIED", area: "Telavi 방면", hours: "현지 확인", price: "중상", note: "확정 아님. 소규모 와이너리 대신 대형 에스테이트를 원할 때의 대안 옵션. 동선상 더 멀다.", mapQuery: "Tsinandali Estate Kakheti", sourceNote: "OPTION · 사용자 확정 아님" },
+        { id: "kk-pheasants", name: "Pheasant's Tears", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Sighnaghi", hours: "현지 확인", price: "중간", note: "내추럴 와인으로 유명한 후보. MASTER 기준 사용자 확정 아님 · 방문일 재확인.", mapQuery: "Pheasant's Tears Sighnaghi", sourceNote: "OPTION · AI 후보 · 방문일 재확인" }
       ]
     },
     {
@@ -153,10 +157,10 @@ window.MJ_TRIP_DATA = {
         { label: "ALTITUDE", value: "고도 ~1,740m", sub: "첫날 무리한 고산활동 자제" }
       ],
       route: [
-        { id: "kz-didube", order: 1, time: "08:30", name: "Didube Marshrutka Station", type: "transport", lat: 41.7306, lng: 44.7726, duration: "탑승·출발 대기", note: "Kazbegi/Stepantsminda 방면 마슈룻카 승차. 출발 전 좌석·요금 확인.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간 30분", costToNext: "현장", mapQuery: "Didube Bus Station Tbilisi" },
-        { id: "kz-ananuri", order: 2, time: "10:00", name: "Ananuri Fortress", type: "sight", lat: 42.1631, lng: 44.7030, duration: "약 20분", note: "Zhinvali 저수지 옆 성채. 기사가 서면 짧게 포토스톱.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Ananuri Fortress Georgia" },
-        { id: "kz-gudauri", order: 3, time: "11:20", name: "Gudauri Viewpoint", type: "sight", lat: 42.4780, lng: 44.4810, duration: "약 15분", note: "러시아–조지아 우호 파노라마 전망대 부근. 고개 넘어가는 하이라이트.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Russia Georgia Friendship Monument Gudauri" },
-        { id: "kz-town", order: 4, time: "12:40", name: "Stepantsminda 도착", type: "stay", lat: 42.6572, lng: 44.6415, duration: "체크인·휴식", note: "짐 풀고 마을·전망 산책. Gergeti Trinity는 컨디션 보고 오후 또는 9/07 오전으로 조정.", mapQuery: "Stepantsminda Georgia" }
+        { id: "kz-didube", order: 1, time: "08:30", name: "Didube Marshrutka Station", type: "transport", status: "PLAN", verification: "UNVERIFIED", lat: 41.7306, lng: 44.7726, duration: "탑승·출발 대기", note: "Kazbegi/Stepantsminda 방면 마슈룻카 승차. 출발 전 좌석·요금 확인.", transportToNext: "마슈룻카", travelTimeToNext: "약 3–3.5시간", costToNext: "현장", mapQuery: "Didube Bus Station Tbilisi" },
+        { id: "kz-ananuri", order: 2, time: "10:00", name: "Ananuri Fortress (optional)", type: "sight", status: "OPTION", verification: "UNVERIFIED", lat: 42.1631, lng: 44.7030, duration: "약 20분", note: "일반 마슈룻카의 확정 정차 아님. 기사가 서는 경우에만 짧게 포토스톱.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Ananuri Fortress Georgia" },
+        { id: "kz-gudauri", order: 3, time: "11:20", name: "Gudauri Viewpoint (optional)", type: "sight", status: "OPTION", verification: "UNVERIFIED", lat: 42.4780, lng: 44.4810, duration: "약 15분", note: "일반 마슈룻카의 확정 정차 아님. 차량이 서면 우호 파노라마 전망대 부근 잠깐.", transportToNext: "마슈룻카", travelTimeToNext: "약 1시간", costToNext: "-", mapQuery: "Russia Georgia Friendship Monument Gudauri" },
+        { id: "kz-town", order: 4, time: "12:40", name: "Stepantsminda 도착", type: "stay", status: "PLAN", verification: "UNVERIFIED", lat: 42.6572, lng: 44.6415, duration: "체크인·휴식", note: "짐 풀고 마을·전망 산책. Gergeti Trinity는 컨디션 보고 오후 또는 9/07 오전으로 조정.", mapQuery: "Stepantsminda Georgia" }
       ],
       food: [
         { id: "kz-rooms", name: "Rooms Hotel Kazbegi Restaurant", kind: "food", status: "planned", area: "Stepantsminda", hours: "현지 확인", price: "중상", note: "Kazbegi 전망으로 유명한 호텔 레스토랑. 전망 좋은 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Rooms Hotel Kazbegi", sourceNote: "일반 참고 · 방문일 재확인" }
@@ -437,21 +441,23 @@ window.MJ_TRIP_DATA = {
       city: "Istanbul",
       country: "Türkiye",
       title: "Arrive Istanbul · Rental Pickup",
-      subtitle: "야간버스 도착 → 17:00 어머니 합류 → 18:00 IST 렌터카 픽업 → 터키 로드트립 시작",
+      status: "PLAN",
+      verification: "UNVERIFIED",
+      subtitle: "야간버스 도착 → 17:00 어머니 합류 → 18:00 IST QCAR 렌터카 픽업 → 터키 로드트립 시작",
       alert: {
-        title: "터키 로드트립 시작점 (세부 루트 미확정)",
-        text: "9/17~27 렌터카 기간은 확정, 10일간 도시별 day-by-day 루트는 아직 미확정이라 placeholder. MJ가 터키 루트를 확정하면 그때 상세 일정을 추가. 9/27 18:00 렌터카 반납."
+        title: "렌터카 확정 · 세부 루트는 미확정",
+        text: "QCAR 렌터카는 CONFIRMED(9/17 18:00 픽업 → 9/27 18:00 반납). 10일간 도시별 day-by-day 루트는 PLAN corridor만 있고 미확정. 무료취소 마감 9/15 18:00. 사고 시 즉시 렌트사 연락·서류(계약서/픽업·반납 상태/영수증/사진) 보관."
       },
       quick: [
         { label: "MEET", value: "17:00 어머니 합류", sub: "Istanbul Airport" },
-        { label: "RENTAL", value: "18:00 픽업 (확정)", sub: "Automatic Renault Clio or equiv." },
-        { label: "TERMS", value: "무제한 주행거리", sub: "예약 총액 ≈ ₩561,389" },
-        { label: "RETURN", value: "09-27 18:00 반납", sub: "IST Airport" }
+        { label: "RENTAL", value: "QCAR · 18:00 픽업 (CONFIRMED)", sub: "Renault Clio or equiv · AT · 무제한 주행" },
+        { label: "COST", value: "€254.45 현장 + 보험 ≈₩131,140", sub: "보증금 €100 환급 · total ≈₩561k" },
+        { label: "RETURN", value: "09-27 18:00 반납", sub: "IST Airport · 무료취소 9/15 18:00" }
       ],
       route: [
-        { id: "ist-arrive", order: 1, time: "08:00", name: "Istanbul 도착 (야간버스)", type: "transport", lat: 41.0082, lng: 28.9784, duration: "오전 여유", note: "야간버스 도착. 공항 이동 전까지 휴식·정비. (도착 터미널 확정 시 좌표 업데이트)", transportToNext: "공항 이동", travelTimeToNext: "터미널·교통 따라", costToNext: "현장", mapQuery: "Istanbul" },
-        { id: "ist-meet", order: 2, time: "17:00", name: "IST Airport · 어머니 합류", type: "airport", lat: 41.2753, lng: 28.7519, duration: "합류", note: "Istanbul Airport에서 어머니와 만남.", transportToNext: "도보(공항 내)", travelTimeToNext: "-", costToNext: "-", mapQuery: "Istanbul Airport" },
-        { id: "ist-rental", order: 3, time: "18:00", name: "렌터카 픽업", type: "experience", lat: 41.2753, lng: 28.7519, duration: "수령·출발", note: "예약 확정. 차량 상태·연료·보험 확인 후 터키 로드트립 시작(세부 루트 추후).", mapQuery: "Istanbul Airport car rental" }
+        { id: "ist-arrive", order: 1, time: "08:00", name: "Istanbul 도착 (야간버스)", type: "transport", status: "PLAN", verification: "UNVERIFIED", lat: 41.0082, lng: 28.9784, duration: "오전 여유", note: "야간버스 도착. 공항 이동 전까지 휴식·정비. (도착 터미널 확정 시 좌표 업데이트)", transportToNext: "공항 이동", travelTimeToNext: "터미널·교통 따라", costToNext: "현장", mapQuery: "Istanbul" },
+        { id: "ist-meet", order: 2, time: "17:00", name: "IST Airport · 어머니 합류", type: "airport", status: "CONFIRMED", verification: "USER_CONFIRMED", lat: 41.2753, lng: 28.7519, duration: "합류", note: "Istanbul Airport에서 어머니와 만남(어머니 도착 17:00).", transportToNext: "도보(공항 내)", travelTimeToNext: "-", costToNext: "-", mapQuery: "Istanbul Airport" },
+        { id: "ist-rental", order: 3, time: "18:00", name: "QCAR 렌터카 픽업", type: "booking", status: "CONFIRMED", verification: "BOOKING_CONFIRMED", lat: 41.2753, lng: 28.7519, duration: "수령·출발", note: "QCAR Mobilite · Renault Clio 또는 동급 · Automatic/Petrol · 무제한 주행거리(바우처 확인). 현장 €254.45 + 보증금 €100(환급) + DiscoverCars Full Coverage ≈₩131,140. reimbursement형 보장이라 사고 시 서류 확보. 차량 상태·연료·보험 확인 후 로드트립 시작.", transportToNext: "자가 운전", travelTimeToNext: "Düzce/Bolu 방향 가능", costToNext: "연료·통행료 현장", mapQuery: "Istanbul Airport car rental" }
       ],
       food: []
     }
