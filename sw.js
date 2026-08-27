@@ -1,5 +1,5 @@
 // 코어 자산이나 데이터(trip-data.js 등)를 바꾸면 CACHE 버전을 올려 사용자 캐시를 갱신한다.
-const CACHE = 'mj-travel-v2';
+const CACHE = 'mj-travel-v3';
 const CORE = [
   './',
   './index.html',

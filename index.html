@@ -30,54 +30,40 @@
       <button class="tab is-active" data-view="today" type="button">TODAY</button>
       <button class="tab" data-view="trip" type="button">TRIP</button>
       <button class="tab" data-view="map" type="button">MAP</button>
-      <button class="tab" data-view="places" type="button">PLACES</button>
-      <button class="tab" data-view="journal" type="button">JOURNAL</button>
+      <button class="tab" data-view="bookings" type="button">BOOKINGS</button>
+      <button class="tab" data-view="more" type="button">MORE</button>
     </nav>
 
     <section id="todayView" class="view is-active">
       <div class="section-head">
         <div>
-          <div class="eyebrow">TODAY ROUTE</div>
+          <div class="eyebrow">TODAY</div>
           <h2 id="dayTitle">오늘의 동선</h2>
         </div>
         <select id="daySelect" class="day-select" aria-label="날짜 선택"></select>
       </div>
+
+      <div id="alertBox"></div>
+      <div id="quickActions" class="quick-actions"></div>
+
+      <div class="section-head compact">
+        <div><div class="eyebrow">AGENDA</div><h2>시간별 일정</h2></div>
+      </div>
+      <div id="timeline" class="timeline"></div>
 
       <div class="map-shell">
         <div id="dayMap" class="map" role="region" aria-label="오늘 일정 지도"></div>
         <div class="map-note">지도 핀 번호가 실제 이동 순서입니다. 위치는 공개 지도 좌표 기준이며 현장에서는 길찾기 버튼으로 다시 확인하세요.</div>
       </div>
 
-      <div id="alertBox"></div>
-
-      <div class="two-col">
-        <section>
-          <div class="section-head compact">
-            <div>
-              <div class="eyebrow">TIMELINE</div>
-              <h2>시간별 일정</h2>
-            </div>
-          </div>
-          <div id="timeline" class="timeline"></div>
-        </section>
-
-        <aside>
-          <div class="section-head compact">
-            <div>
-              <div class="eyebrow">QUICK INFO</div>
-              <h2>오늘 필요한 것</h2>
-            </div>
-          </div>
-          <div id="quickInfo" class="quick-grid"></div>
-        </aside>
+      <div class="section-head compact">
+        <div><div class="eyebrow">QUICK INFO</div><h2>오늘 필요한 것</h2></div>
       </div>
+      <div id="quickInfo" class="quick-grid"></div>
 
       <section>
         <div class="section-head compact">
-          <div>
-            <div class="eyebrow">FOOD & STOPS</div>
-            <h2>먹을 곳 · 들를 곳</h2>
-          </div>
+          <div><div class="eyebrow">FOOD & STOPS</div><h2>먹을 곳 · 들를 곳</h2></div>
         </div>
         <div id="foodList" class="cards"></div>
       </section>
@@ -90,6 +76,7 @@
           <h2>전체 여행</h2>
         </div>
       </div>
+      <div id="tripSkeleton" class="skeleton-strip" aria-label="전체 여행 흐름"></div>
       <div id="tripTimeline" class="trip-timeline"></div>
     </section>
 
@@ -104,6 +91,21 @@
         <div id="allMap" class="map" role="region" aria-label="전체 여행 지도"></div>
       </div>
       <div id="mapLegend" class="legend"></div>
+    </section>
+
+    <section id="bookingsView" class="view">
+      <div class="section-head">
+        <div><div class="eyebrow">BOOKINGS</div><h2>예약 · 확정</h2></div>
+      </div>
+      <div class="journal-intro">예약이 필요하거나 확정된 항목만 모았습니다. 비용 요약·ICS 내보내기는 다음 단계에서 붙습니다.</div>
+      <div id="bookingsList" class="bookings-list"></div>
+    </section>
+
+    <section id="moreView" class="view">
+      <div class="section-head">
+        <div><div class="eyebrow">MORE</div><h2>더보기</h2></div>
+      </div>
+      <div id="moreMenu" class="more-menu"></div>
     </section>
 
     <section id="placesView" class="view">
@@ -133,6 +135,21 @@
         여행 중 방문 완료 체크와 메모가 쌓이면 이곳에서 실제 여행기 초안으로 정리할 수 있도록 설계했습니다. 현재는 계획과 현장 기록을 분리해 저장합니다.
       </div>
       <div id="journalList" class="journal-list"></div>
+    </section>
+
+    <section id="budgetView" class="view">
+      <div class="section-head"><div><div class="eyebrow">BUDGET</div><h2>예산</h2></div></div>
+      <div class="journal-intro">구조화 예산(비용·통화·환율·cash-at-risk 분리)은 유닛 4에서 제공됩니다.</div>
+    </section>
+
+    <section id="documentsView" class="view">
+      <div class="section-head"><div><div class="eyebrow">DOCUMENTS</div><h2>서류 체크리스트</h2></div></div>
+      <div class="journal-intro">민감 문서(여권·카드·PNR)는 저장하지 않습니다. 준비물 체크리스트만 다룰 예정입니다. (준비 중)</div>
+    </section>
+
+    <section id="storiesView" class="view">
+      <div class="section-head"><div><div class="eyebrow">STORIES</div><h2>문화·역사</h2></div></div>
+      <div class="journal-intro">장소별 문화·역사 콘텐츠 레이어는 별도(<code>stories-data.js</code>)로 준비 중입니다.</div>
     </section>
   </main>
 

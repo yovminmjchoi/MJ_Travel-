@@ -78,15 +78,32 @@
       </div>`;
   }
 
+  const MAIN_TABS = ['today', 'trip', 'map', 'bookings', 'more'];
+  const TRIP_SKELETON = ['Seoul', 'Shanghai', 'Georgia', 'Türkiye', 'Tunisia', 'Egypt', 'UAE', '[Bali]', 'Brisbane'];
+
+  function showView(view) {
+    const el = $(`#${view}View`);
+    if (!el) return;
+    $$('.view').forEach(v => v.classList.remove('is-active'));
+    el.classList.add('is-active');
+    const activeTab = MAIN_TABS.includes(view) ? view : 'more'; // 서브뷰는 MORE 탭 유지
+    $$('.tab').forEach(b => b.classList.toggle('is-active', b.dataset.view === activeTab));
+    if (view === 'map') setTimeout(renderAllMap, 50);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function initTabs() {
-    $$('.tab').forEach(btn => btn.addEventListener('click', () => {
-      $$('.tab').forEach(b => b.classList.toggle('is-active', b === btn));
-      $$('.view').forEach(v => v.classList.remove('is-active'));
-      $(`#${btn.dataset.view}View`).classList.add('is-active');
-      if (btn.dataset.view === 'map') {
-        setTimeout(renderAllMap, 50);
-      }
-    }));
+    $$('.tab').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view)));
+  }
+
+  let toastTimer = null;
+  function toast(msg) {
+    let t = $('#toast');
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1900);
   }
 
   function initDaySelect() {
@@ -158,36 +175,46 @@
     setTimeout(() => map.invalidateSize(), 80);
   }
 
+  // compact agenda 행 + tap 시 아코디언 상세 (issue #1 §1)
   function renderTimeline(day) {
     $('#timeline').innerHTML = day.route.map(stop => {
-      const visited = !!state.visited[`${day.id}:${stop.id}`];
-      return `<div class="timeline-item">
-        <div class="time">${esc(stop.time)}</div>
-        <div class="timeline-track"><div class="dot"></div></div>
-        <div class="stop-card">
-          <div class="stop-top">
-            <div>
-              <h3>${stop.order}. ${esc(stop.name)} ${stop.status && stop.status !== 'PLAN' ? statusPill(stop.status) : ''}</h3>
-              <p>${esc(stop.note || '')}</p>
+      const visited = !!state.visited[uid(day.id, stop.id)];
+      const pill = stop.status && stop.status !== 'PLAN' ? statusPill(stop.status) : '';
+      return `<div class="tl-row${visited ? ' is-visited' : ''}">
+        <div class="tl-time">${esc(stop.time)}</div>
+        <div class="tl-body">
+          <button class="tl-head" type="button" aria-expanded="false">
+            <span class="tl-name">${stop.order}. ${esc(stop.name)} ${pill}${visited ? ' <span class="tl-check">✓ 방문</span>' : ''}</span>
+            <span class="tl-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="tl-detail" hidden>
+            ${stop.note ? `<p>${esc(stop.note)}</p>` : ''}
+            <div class="badges">
+              ${stop.duration ? `<span class="badge">체류 ${esc(stop.duration)}</span>` : ''}
+              ${stop.transportToNext ? `<span class="badge transport">다음: ${esc(stop.transportToNext)} ${esc(stop.travelTimeToNext || '')}</span>` : ''}
+              ${stop.costToNext ? `<span class="badge cost">${esc(stop.costToNext)}</span>` : ''}
             </div>
-            ${visited ? '<span class="badge visited">방문 완료</span>' : ''}
-          </div>
-          <div class="badges">
-            ${stop.duration ? `<span class="badge">체류 ${esc(stop.duration)}</span>` : ''}
-            ${stop.transportToNext ? `<span class="badge transport">다음: ${esc(stop.transportToNext)} ${esc(stop.travelTimeToNext || '')}</span>` : ''}
-            ${stop.costToNext ? `<span class="badge cost">${esc(stop.costToNext)}</span>` : ''}
-          </div>
-          <div class="actions">
-            <a class="action-btn primary" href="${dir(stop.mapQuery || stop.name)}" target="_blank" rel="noopener">길찾기</a>
-            <a class="action-btn" href="${gm(stop.mapQuery || stop.name)}" target="_blank" rel="noopener">지도에서 보기</a>
-            <button class="action-btn visit-stop" type="button" data-day="${day.id}" data-stop="${stop.id}">${visited ? '방문 취소' : '방문 완료'}</button>
+            <div class="actions">
+              <a class="action-btn primary" href="${dir(stop.mapQuery || stop.name)}" target="_blank" rel="noopener">길찾기</a>
+              <a class="action-btn" href="${gm(stop.mapQuery || stop.name)}" target="_blank" rel="noopener">지도</a>
+              <button class="action-btn visit-stop" type="button" data-day="${day.id}" data-stop="${stop.id}">${visited ? '방문 취소' : '방문 완료'}</button>
+            </div>
           </div>
         </div>
       </div>`;
     }).join('');
 
-    $$('.visit-stop', $('#timeline')).forEach(btn => btn.addEventListener('click', () => {
-      const key = `${btn.dataset.day}:${btn.dataset.stop}`;
+    $$('.tl-head', $('#timeline')).forEach(h => h.addEventListener('click', () => {
+      const detail = h.parentElement.querySelector('.tl-detail');
+      const open = h.getAttribute('aria-expanded') === 'true';
+      h.setAttribute('aria-expanded', String(!open));
+      detail.hidden = open;
+      h.classList.toggle('is-open', !open);
+    }));
+
+    $$('.visit-stop', $('#timeline')).forEach(btn => btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const key = uid(btn.dataset.day, btn.dataset.stop);
       state.visited[key] = !state.visited[key];
       localStorage.setItem('mj-travel-visited', JSON.stringify(state.visited));
       renderDay();
@@ -238,11 +265,25 @@
     const day = selectedDay();
     $('#dayTitle').textContent = `${day.dateLabel} · ${day.city}`;
     const books = bookingItems(day);
-    const bookBanner = books.length
-      ? `<div class="book-banner">🔖 예약 필요 ${books.length}건 · ${books.map(s => esc(s.name)).join(' · ')}</div>`
-      : '';
+    const checks = day.route.filter(s => s.status === 'CHECK_BEFORE_TRAVEL');
+    let banners = '';
+    if (books.length) banners += `<div class="book-banner">🔖 예약 필요 ${books.length}건 · ${books.map(s => esc(s.name)).join(' · ')}</div>`;
+    if (checks.length) banners += `<div class="check-banner">⚠ 재확인 ${checks.length}건 · ${checks.map(s => esc(s.name)).join(' · ')}</div>`;
     const alertHtml = day.alert ? `<div class="alert"><strong>${esc(day.alert.title)}</strong>${esc(day.alert.text)}</div>` : '';
-    $('#alertBox').innerHTML = bookBanner + alertHtml;
+    $('#alertBox').innerHTML = banners + alertHtml;
+
+    // quick actions (issue #1 §1) — Bookings는 지금 동작, Edit/Add expense는 유닛 3·4에서 활성화
+    $('#quickActions').innerHTML = `
+      <button class="qa-btn" type="button" data-act="bookings">🔖 Bookings</button>
+      <button class="qa-btn" type="button" data-act="edit">✎ Edit day</button>
+      <button class="qa-btn" type="button" data-act="expense">＋ Add expense</button>`;
+    $$('.qa-btn', $('#quickActions')).forEach(b => b.addEventListener('click', () => {
+      const act = b.dataset.act;
+      if (act === 'bookings') showView('bookings');
+      else if (act === 'edit') toast('현장 편집(Edit day)은 유닛 3에서 켜집니다');
+      else if (act === 'expense') toast('지출 입력(Add expense)은 유닛 4에서 켜집니다');
+    }));
+
     renderDayMap(day);
     renderTimeline(day);
     renderQuick(day);
@@ -250,6 +291,8 @@
   }
 
   function renderTrip() {
+    $('#tripSkeleton').innerHTML = TRIP_SKELETON.map((c, i) =>
+      `<span class="skel-node">${esc(c)}</span>${i < TRIP_SKELETON.length - 1 ? '<span class="skel-arrow">→</span>' : ''}`).join('');
     $('#tripTimeline').innerHTML = DATA.days.map(day => `
       <article class="trip-day">
         <div class="date">${esc(day.dateLabel)} · ${esc(day.country)} ${statusPill(deriveDayStatus(day))}</div>
@@ -260,11 +303,46 @@
     $$('.open-day').forEach(btn => btn.addEventListener('click', () => {
       state.selectedDay = btn.dataset.day;
       $('#daySelect').value = state.selectedDay;
-      $$('.tab').forEach(b => b.classList.toggle('is-active', b.dataset.view === 'today'));
-      $$('.view').forEach(v => v.classList.toggle('is-active', v.id === 'todayView'));
       renderDay();
-      window.scrollTo({ top: 180, behavior: 'smooth' });
+      showView('today');
     }));
+  }
+
+  function renderBookings() {
+    const rows = [];
+    DATA.flights.forEach(f => rows.push({
+      date: f.date, where: `${f.from} → ${f.to}`, name: `✈ ${f.flight}`,
+      status: f.status || 'CONFIRMED', note: `${f.depart} → ${f.arrive}`, mapQuery: f.to
+    }));
+    DATA.days.forEach(day => day.route.forEach(s => {
+      if (['CONFIRMED', 'NEED_TO_BOOK', 'CHECK_BEFORE_TRAVEL'].includes(s.status)) {
+        rows.push({ date: day.dateLabel, where: day.city, name: s.name, status: s.status, note: s.note || '', mapQuery: s.mapQuery || s.name });
+      }
+    }));
+    const order = { NEED_TO_BOOK: 0, CHECK_BEFORE_TRAVEL: 1, CONFIRMED: 2 };
+    rows.sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9));
+    const count = st => rows.filter(r => r.status === st).length;
+    $('#bookingsList').innerHTML =
+      `<div class="book-summary">예약 필요 ${count('NEED_TO_BOOK')} · 재확인 ${count('CHECK_BEFORE_TRAVEL')} · 확정 ${count('CONFIRMED')}</div>` +
+      rows.map(r => `<article class="booking-card">
+        <div class="bk-top">${statusPill(r.status)}<span class="bk-date">${esc(r.date)} · ${esc(r.where)}</span></div>
+        <h3>${esc(r.name)}</h3>
+        ${r.note ? `<p>${esc(r.note)}</p>` : ''}
+        <div class="actions"><a class="action-btn" href="${gm(r.mapQuery)}" target="_blank" rel="noopener">지도</a></div>
+      </article>`).join('');
+  }
+
+  function renderMore() {
+    const items = [
+      { view: 'places', label: 'PLACES', desc: '가볼 곳 · 가본 곳' },
+      { view: 'budget', label: 'BUDGET', desc: '예산 · cash-at-risk (유닛 4)' },
+      { view: 'documents', label: 'DOCUMENTS', desc: '서류 체크리스트 (준비 중)' },
+      { view: 'journal', label: 'JOURNAL', desc: '여행 기록 · 메모' },
+      { view: 'stories', label: 'STORIES', desc: '문화·역사 콘텐츠 (준비 중)' }
+    ];
+    $('#moreMenu').innerHTML = items.map(i =>
+      `<button class="more-item" type="button" data-goto="${i.view}"><span class="mi-label">${i.label}</span><span class="mi-desc">${esc(i.desc)}</span><span class="mi-arrow" aria-hidden="true">→</span></button>`).join('');
+    $$('.more-item').forEach(b => b.addEventListener('click', () => showView(b.dataset.goto)));
   }
 
   function renderAllMap() {
@@ -401,6 +479,8 @@
   initPlaceFilters();
   renderDay();
   renderTrip();
+  renderBookings();
+  renderMore();
   renderPlaces();
   renderJournal();
   initInstall();
