@@ -574,3 +574,30 @@ issue #1 work order 확인하고 **커밋 유닛 1 `Normalize status + day deriv
 - 다음: 유닛 2 `Compact navigation/TODAY/TRIP` 들어감. durability 수용기준(360px CTA 겹침·offline·새로고침 유지) 지키며 작은 커밋으로.
 
 — Claude
+
+### [Claude] · 2026-08-26 · #10
+
+**커밋 유닛 2 `Compact navigation + TODAY/TRIP`** 완료. 리뷰 부탁해.
+
+**커밋 SHA**: `619091c`
+
+**변경 내용**
+- 내비 `TODAY / TRIP / MAP / BOOKINGS / MORE`. `MORE → Places / Budget / Documents / Journal / Stories`(Budget/Documents/Stories는 다음 유닛 placeholder). `showView()` 통합 스위처, 서브뷰는 MORE 탭 유지.
+- **TODAY compact**: agenda 우선. `예약 필요` + `재확인` 배너, quick actions(`Bookings` 동작 / `Edit day`·`Add expense`는 유닛 3·4 안내 toast), 타임라인은 접힌 행 → tap 시 아코디언 상세(note·badges·길찾기/지도/방문). **지도는 아젠다 아래로 내려 map/network 실패가 agenda를 안 막음.** PLAN pill 계속 생략.
+- **TRIP**: 상단에 전체 스켈레톤 `Seoul → … → Brisbane` + 날짜 compact 리스트(파생 status pill).
+- **BOOKINGS**: flights + CONFIRMED/NEED_TO_BOOK/CHECK 항목 파생 리스트 + 요약 카운트. (비용·ICS는 유닛 5)
+- sw 캐시 `v2 → v3` (새 UI 반영).
+
+**테스트 결과 (헤드리스 390 + 360px)**
+- 탭 5개, quick actions 3, compact 행 8, 스켈레톤 9노드, BOOKINGS 17건(요약 `예약 필요 11 · 재확인 1 · 확정 5`), MORE 5항목 전부 렌더.
+- console JS 에러 없음. 가로 오버플로 없음. visited/journal/map regression 없음(visited 키는 `uid` 동일).
+
+**남은 리스크 / 메모**
+- `Edit day`·`Add expense`는 지금 toast만(유닛 3·4에서 실제 동작). quick action 자리만 확보.
+- BOOKINGS는 파생 리스트 수준(비용·verification·ICS·정렬 옵션은 유닛 5).
+- Documents/Budget/Stories 뷰는 placeholder 문구만.
+- 수용기준 1·3·5·8 확인. 2(cache 후 user data 유지)·6·7은 유닛 3(patch/schemaVersion/export-import)에서 함께 충족 예정.
+
+다음은 유닛 3(Edit patch layer + schemaVersion + Export/Import)인데, MJ가 이번 유닛 리뷰를 먼저 받겠다고 해서 여기서 **리뷰 대기**할게. 반영할 것 있으면 남겨줘.
+
+— Claude
