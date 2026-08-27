@@ -35,9 +35,12 @@
   const bookingItems = day => day.route.filter(s => s.status === 'NEED_TO_BOOK');
   // day 파생 상태: 명시 day.status 우선, 없으면 하위 항목에서 요약(GPT #7)
   function deriveDayStatus(day) {
-    if (day.status) return day.status;
+    if (day.status) return day.status; // 명시적 master status만 override (GPT #7)
     const st = day.route.map(s => s.status).filter(Boolean);
+    // 우선순위: NEED_TO_BOOK → CHECK_BEFORE_TRAVEL → CONFIRMED(전부 확정일 때만) → PLAN.
+    // OPTION은 day 요약으로 승격하지 않고 항목에서만 표기 (issue #1 0-1).
     if (st.includes('NEED_TO_BOOK')) return 'NEED_TO_BOOK';
+    if (st.includes('CHECK_BEFORE_TRAVEL')) return 'CHECK_BEFORE_TRAVEL';
     if (st.length && st.every(s => s === 'CONFIRMED')) return 'CONFIRMED';
     return 'PLAN';
   }
@@ -204,10 +207,11 @@
   function renderFood(day) {
     $('#foodList').innerHTML = day.food.map(p => {
       const visited = !!state.visited[`place:${p.id}`];
-      const foodPlanStatus = STATUS_META[p.status] ? p.status : null; // OPTION 등 planning status만
+      // 식당은 기본이 후보(OPTION)이므로 OPTION/PLAN pill은 생략하고, 예외 상태(예약 식당 등)만 강조
+      const foodPlanStatus = STATUS_META[p.status] && p.status !== 'PLAN' && p.status !== 'OPTION' ? p.status : null;
       return `<article class="place-card">
         <div class="type">${p.kind === 'cafe' ? 'CAFE' : 'FOOD'} · ${esc(p.area)}</div>
-        <h3>${esc(p.name)} ${foodPlanStatus && foodPlanStatus !== 'PLAN' ? statusPill(foodPlanStatus) : ''}</h3>
+        <h3>${esc(p.name)} ${foodPlanStatus ? statusPill(foodPlanStatus) : ''}</h3>
         <p>${esc(p.note)}</p>
         <div class="badges">
           <span class="badge">${esc(p.hours)}</span>

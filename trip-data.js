@@ -8,8 +8,8 @@ window.MJ_TRIP_DATA = {
     statusLegend: "status: CONFIRMED|PLAN|OPTION|NEED_TO_BOOK|CHECK_BEFORE_TRAVEL · verification: USER_CONFIRMED|BOOKING_CONFIRMED|SOURCE_VERIFIED|UNVERIFIED"
   },
   flights: [
-    { date: "2026-09-01", from: "ICN T1", to: "PVG T1", flight: "FM3068 / MU5042 운항", depart: "12:55", arrive: "14:15", status: "확정" },
-    { date: "2026-09-02", from: "PVG T1", to: "TBS", flight: "MU285", depart: "12:50", arrive: "19:00", status: "확정" }
+    { date: "2026-09-01", from: "ICN T1", to: "PVG T1", flight: "FM3068 / MU5042 운항", depart: "12:55", arrive: "14:15", status: "CONFIRMED", verification: "BOOKING_CONFIRMED" },
+    { date: "2026-09-02", from: "PVG T1", to: "TBS", flight: "MU285", depart: "12:50", arrive: "19:00", status: "CONFIRMED", verification: "BOOKING_CONFIRMED" }
   ],
   days: [
     {
@@ -40,9 +40,9 @@ window.MJ_TRIP_DATA = {
         { id: "hostel-return", order: 8, time: "22:10", name: "Hostel Return", type: "stay", lat: 31.2297, lng: 121.4906, duration: "취침", note: "다음날 장거리 비행. 야식보다 수면 우선.", mapQuery: "No. 59 Yan'an East Road Huangpu Shanghai" }
       ],
       food: [
-        { id: "sh-laofandian", name: "Shanghai Lao Fan Dian · 上海老饭店", kind: "food", status: "planned", area: "Yuyuan", hours: "10:00–22:00 확인", price: "중간", note: "상하이식 요리를 먹고 싶을 때 우선 후보. 예원 동선 안쪽이라 이동 손실이 적음.", mapQuery: "Shanghai Lao Fan Dian Fuyou Road 242", sourceNote: "2026-08 business listing 확인" },
-        { id: "sh-nanxiang", name: "Nanxiang Mantou Dian · 南翔馒头店", kind: "food", status: "planned", area: "Yuyuan Bazaar", hours: "07:00–21:00 확인", price: "중간", note: "유명 샤오롱바오. 관광객이 많아 줄이 길면 과감히 패스. 이번 일정은 페리 시간이 더 중요.", mapQuery: "Nanxiang Mantou Dian Yuyuan Shanghai", sourceNote: "2026-08 운영시간 확인" },
-        { id: "sh-arabica", name: "% Arabica Shanghai Yu Garden", kind: "cafe", status: "planned", area: "Yuyuan", hours: "대체로 07:30–22:00대", price: "카페", note: "커피가 필요할 때만. 관광 시간 침범하면 제외.", mapQuery: "% Arabica Shanghai Yu Garden", sourceNote: "2026-08 business listing 확인" }
+        { id: "sh-laofandian", name: "Shanghai Lao Fan Dian · 上海老饭店", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Yuyuan", hours: "10:00–22:00 확인", price: "중간", note: "상하이식 요리를 먹고 싶을 때 우선 후보. 예원 동선 안쪽이라 이동 손실이 적음.", mapQuery: "Shanghai Lao Fan Dian Fuyou Road 242", sourceNote: "2026-08 business listing 확인" },
+        { id: "sh-nanxiang", name: "Nanxiang Mantou Dian · 南翔馒头店", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Yuyuan Bazaar", hours: "07:00–21:00 확인", price: "중간", note: "유명 샤오롱바오. 관광객이 많아 줄이 길면 과감히 패스. 이번 일정은 페리 시간이 더 중요.", mapQuery: "Nanxiang Mantou Dian Yuyuan Shanghai", sourceNote: "2026-08 운영시간 확인" },
+        { id: "sh-arabica", name: "% Arabica Shanghai Yu Garden", kind: "cafe", status: "OPTION", verification: "UNVERIFIED", area: "Yuyuan", hours: "대체로 07:30–22:00대", price: "카페", note: "커피가 필요할 때만. 관광 시간 침범하면 제외.", mapQuery: "% Arabica Shanghai Yu Garden", sourceNote: "2026-08 business listing 확인" }
       ]
     },
     {
@@ -71,9 +71,9 @@ window.MJ_TRIP_DATA = {
         { id: "sleep", order: 6, time: "23:15", name: "Return & Sleep", type: "stay", lat: 41.6938, lng: 44.8015, duration: "취침", note: "다음날 Old Tbilisi full day.", mapQuery: "Freedom Square Tbilisi" }
       ],
       food: [
-        { id: "tb-shemomechama", name: "Shemomechama Old Tbilisi", kind: "food", status: "planned", area: "Old Tbilisi", hours: "운영시간 당일 확인", price: "중간", note: "도착 첫날 숙소가 Old Town이라면 동선 좋은 조지아식 후보.", mapQuery: "Shemomechama Old Tbilisi Samgebro 9", sourceNote: "2026-08 business listing 확인" },
-        { id: "tb-maemani", name: "Maemani", kind: "food", status: "planned", area: "Old Tbilisi", hours: "14:00–02:30 확인", price: "중간", note: "늦은 도착에도 이용하기 쉬운 후보. 첫날 식당 결정은 실제 숙소 위치 기준으로 최종 선택.", mapQuery: "Maemani Bambis Rigi 12 Tbilisi", sourceNote: "2026-08 business listing 확인" },
-        { id: "tb-khinkali", name: "Khinkali Collection", kind: "food", status: "planned", area: "Freedom Square", hours: "13:00–23:30 확인", price: "중간", note: "Freedom Square 쪽 숙소라면 편리. 여러 종류의 힌칼리 후보.", mapQuery: "Khinkali Collection Pushkin 19 Tbilisi", sourceNote: "2026-08 business listing 확인" }
+        { id: "tb-shemomechama", name: "Shemomechama Old Tbilisi", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Old Tbilisi", hours: "운영시간 당일 확인", price: "중간", note: "도착 첫날 숙소가 Old Town이라면 동선 좋은 조지아식 후보.", mapQuery: "Shemomechama Old Tbilisi Samgebro 9", sourceNote: "2026-08 business listing 확인" },
+        { id: "tb-maemani", name: "Maemani", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Old Tbilisi", hours: "14:00–02:30 확인", price: "중간", note: "늦은 도착에도 이용하기 쉬운 후보. 첫날 식당 결정은 실제 숙소 위치 기준으로 최종 선택.", mapQuery: "Maemani Bambis Rigi 12 Tbilisi", sourceNote: "2026-08 business listing 확인" },
+        { id: "tb-khinkali", name: "Khinkali Collection", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Freedom Square", hours: "13:00–23:30 확인", price: "중간", note: "Freedom Square 쪽 숙소라면 편리. 여러 종류의 힌칼리 후보.", mapQuery: "Khinkali Collection Pushkin 19 Tbilisi", sourceNote: "2026-08 business listing 확인" }
       ]
     },
     {
@@ -105,9 +105,9 @@ window.MJ_TRIP_DATA = {
         { id: "bath-or-cafe", order: 9, time: "16:30", name: "Sulfur Bath or Cafe · Wine", type: "experience", lat: 41.6878, lng: 44.8112, duration: "1–2시간", note: "컨디션에 따라 유황온천 또는 쉬는 시간. 첫날부터 과하게 채우지 않기.", mapQuery: "Abanotubani sulfur bath Tbilisi" }
       ],
       food: [
-        { id: "tb-salobie", name: "Salobie Bia", kind: "food", status: "planned", area: "Rustaveli", hours: "12:00–23:00 확인", price: "중간", note: "현대적으로 정리된 조지아 로컬 요리 후보. 첫날 점심/저녁 모두 고려 가능.", mapQuery: "Salobie Bia 17 Shota Rustaveli Tbilisi", sourceNote: "2026-08 business listing 확인" },
-        { id: "tb-mapshalia", name: "Mapshalia", kind: "food", status: "planned", area: "Aghmashenebeli", hours: "09:00–22:00 확인", price: "저렴", note: "저렴한 로컬 조지아·Mingrelian 계열 음식 후보. Old Town 중심에서는 이동이 필요.", mapQuery: "Mapshalia 137 Davit Aghmashenebeli Tbilisi", sourceNote: "2026-08 business listing 확인" },
-        { id: "tb-shavilomi", name: "Shavi Lomi", kind: "food", status: "planned", area: "Kvlividze", hours: "12:00 이후 · 요일별 종료시간 상이", price: "중간", note: "조지아 요리를 조금 더 분위기 있게 먹을 후보. 일정과 맞으면 저녁용.", mapQuery: "Shavi Lomi 30 Kvlividze Tbilisi", sourceNote: "2026-08 business listing 확인" }
+        { id: "tb-salobie", name: "Salobie Bia", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Rustaveli", hours: "12:00–23:00 확인", price: "중간", note: "현대적으로 정리된 조지아 로컬 요리 후보. 첫날 점심/저녁 모두 고려 가능.", mapQuery: "Salobie Bia 17 Shota Rustaveli Tbilisi", sourceNote: "2026-08 business listing 확인" },
+        { id: "tb-mapshalia", name: "Mapshalia", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Aghmashenebeli", hours: "09:00–22:00 확인", price: "저렴", note: "저렴한 로컬 조지아·Mingrelian 계열 음식 후보. Old Town 중심에서는 이동이 필요.", mapQuery: "Mapshalia 137 Davit Aghmashenebeli Tbilisi", sourceNote: "2026-08 business listing 확인" },
+        { id: "tb-shavilomi", name: "Shavi Lomi", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Kvlividze", hours: "12:00 이후 · 요일별 종료시간 상이", price: "중간", note: "조지아 요리를 조금 더 분위기 있게 먹을 후보. 일정과 맞으면 저녁용.", mapQuery: "Shavi Lomi 30 Kvlividze Tbilisi", sourceNote: "2026-08 business listing 확인" }
       ]
     },
     {
@@ -163,7 +163,7 @@ window.MJ_TRIP_DATA = {
         { id: "kz-town", order: 4, time: "12:40", name: "Stepantsminda 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", status: "PLAN", verification: "UNVERIFIED", lat: 42.6572, lng: 44.6415, duration: "체크인·휴식", note: "짐 풀고 마을·전망 산책. Gergeti Trinity는 컨디션 보고 오후 또는 9/07 오전으로 조정.", mapQuery: "Stepantsminda Georgia" }
       ],
       food: [
-        { id: "kz-rooms", name: "Rooms Hotel Kazbegi Restaurant", kind: "food", status: "planned", area: "Stepantsminda", hours: "현지 확인", price: "중상", note: "Kazbegi 전망으로 유명한 호텔 레스토랑. 전망 좋은 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Rooms Hotel Kazbegi", sourceNote: "일반 참고 · 방문일 재확인" }
+        { id: "kz-rooms", name: "Rooms Hotel Kazbegi Restaurant", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Stepantsminda", hours: "현지 확인", price: "중상", note: "Kazbegi 전망으로 유명한 호텔 레스토랑. 전망 좋은 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Rooms Hotel Kazbegi", sourceNote: "일반 참고 · 방문일 재확인" }
       ]
     },
     {
@@ -238,7 +238,7 @@ window.MJ_TRIP_DATA = {
         { id: "me-arrive", order: 3, time: "16:00", name: "Mestia 도착", type: "stay", status: "NEED_TO_BOOK", verification: "UNVERIFIED", lat: 43.0451, lng: 42.7289, duration: "체크인·휴식", note: "Svaneti 중심지. 트레킹 짐·날씨·마을 안내소 확인.", mapQuery: "Mestia Svaneti Georgia" }
       ],
       food: [
-        { id: "me-laila", name: "Cafe Laila", kind: "food", status: "planned", area: "Mestia 중앙광장", hours: "현지 확인", price: "중간", note: "Mestia 중앙광장의 대표 카페·레스토랑. 트레킹 전후 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Cafe Laila Mestia", sourceNote: "일반 참고 · 방문일 재확인" }
+        { id: "me-laila", name: "Cafe Laila", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Mestia 중앙광장", hours: "현지 확인", price: "중간", note: "Mestia 중앙광장의 대표 카페·레스토랑. 트레킹 전후 한 끼 후보. 방문일 운영 재확인.", mapQuery: "Cafe Laila Mestia", sourceNote: "일반 참고 · 방문일 재확인" }
       ]
     },
     {
@@ -359,7 +359,7 @@ window.MJ_TRIP_DATA = {
         { id: "ku-bagrati", order: 3, time: "16:30", name: "Bagrati Cathedral (옵션)", type: "sight", lat: 42.2780, lng: 42.7060, duration: "약 40분", note: "언덕 위 성당·시내 전망. 여유 있을 때.", mapQuery: "Bagrati Cathedral Kutaisi" }
       ],
       food: [
-        { id: "ku-palaty", name: "Palaty", kind: "food", status: "planned", area: "Kutaisi 시내", hours: "현지 확인", price: "중간", note: "Kutaisi 시내의 분위기 있는 레스토랑·카페 후보. 방문일 운영 재확인.", mapQuery: "Palaty Kutaisi", sourceNote: "일반 참고 · 방문일 재확인" }
+        { id: "ku-palaty", name: "Palaty", kind: "food", status: "OPTION", verification: "UNVERIFIED", area: "Kutaisi 시내", hours: "현지 확인", price: "중간", note: "Kutaisi 시내의 분위기 있는 레스토랑·카페 후보. 방문일 운영 재확인.", mapQuery: "Palaty Kutaisi", sourceNote: "일반 참고 · 방문일 재확인" }
       ]
     },
     {
